@@ -1,317 +1,132 @@
 #include <iostream>
-#include<Windows.h>
+#include<windows.h>
 #include <fstream>
-#include <list>
 #include <io.h>
 #include<direct.h>
 #include<stdio.h>
+#include<string>
+#include "Farmanager.h"
+
 using namespace std;
 
-//class Guest {
-//	string name;
-//	string surname;
-//	string fathername;
-//	string address;
-//	int mobile;
-//	string loginname;
-//	int password;
-//
-//public:
-//	Guest()
-//	{
-//		this->name = "";
-//		this->surname = "";
-//		this->fathername = "";
-//		this->address = "";
-//		this->mobile = 0;
-//		
-//	}
-//	Guest(string name,string surname,string fathername,string adress,int mobile,string loginname,int password)
-//	{
-//		this->name = name;
-//		this->surname = surname;
-//		this->fathername = fathername;
-//		this->address = address;
-//		this->mobile = mobile;
-//		this->loginname = loginname;
-//		this->password = password;
-//	}
-//	//void Register();
-//	void Savetofile();
-//	void Register(Guest &g);
-//	void Print();
-//};
-//
-//
-//
-//void Guest::Savetofile()
-//{
-//	int size;
-//	fstream file("guest.txt", ios::out | ios::binary | ios::app);
-//	if (!file)
-//	{
-//		cout << "File not open for write" << endl;
-//		exit(1);
-//	}
-//
-//	file.write((char*)&mobile, sizeof(int));
-//	file.write((char*)&password, sizeof(int));
-//	size = name.length();
-//	file.write((char*)&size, sizeof(size));
-//	file.write(name.c_str(), size * sizeof(char));
-//	size = surname.length();
-//	file.write((char*)&size, sizeof(size));
-//	file.write(surname.c_str(), size * sizeof(char));
-//	size = fathername.length();
-//	file.write((char*)&size, sizeof(size));
-//	file.write(fathername.c_str(), size * sizeof(char));
-//	size = address.length();
-//	file.write((char*)&size, sizeof(size));
-//	file.write(address.c_str(), size * sizeof(char));
-//	size = loginname.length();
-//	file.write((char*)&size, sizeof(size));
-//	file.write(loginname.c_str(), size * sizeof(char));
-//	file.close();
-//
-//
-//}
-//
-//void Guest::Register(Guest &g)
-//{
-//	fstream file("guest.txt", ios::in | ios::binary);
-//	if (!file)
-//	{
-//		cout << "File not open for read" << endl;
-//		exit(1);
-//	}
-//	char* n, * s, * f, * a,*l;
-//	int temp;
-//	int m,p;
-//	while (file.read((char*)&m, sizeof(n)))
-//	{
-//		file.read((char*)&p, sizeof(int));
-//		file.read((char*)&temp, sizeof(int));
-//		n = new char[temp + 1];
-//		if (!n)
-//		{
-//			cout << "Memmory allocation error" << endl;
-//			exit(1);
-//		}
-//		file.read(n, temp * sizeof(char));
-//		n[temp] = '\0';
-//	
-//	
-//		file.read((char*)&temp, sizeof(int));
-//		s = new char[temp + 1];
-//		if (!s)
-//		{
-//			cout << "Memmory allocation error" << endl;
-//			exit(1);
-//		}
-//		file.read(s, temp * sizeof(char));
-//		s[temp] = '\0';
-//	
-//
-//		file.read((char*)&temp, sizeof(int));
-//		f = new char[temp + 1];
-//		if (!f)
-//		{
-//			cout << "Memmory allocation error" << endl;
-//			exit(1);
-//		}
-//		file.read(f, temp * sizeof(char));
-//		f[temp] = '\0';
-//	
-//		file.read((char*)&temp, sizeof(int));
-//		a = new char[temp + 1];
-//		if (!a)
-//		{
-//			cout << "Memmory allocation error" << endl;
-//			exit(1);
-//		}
-//		file.read(a, temp * sizeof(char));
-//		a[temp] = '\0';
-//	
-//
-//		file.read((char*)&temp, sizeof(int));
-//		l= new char[temp + 1];
-//		if (!a)
-//		{
-//			cout << "Memmory allocation error" << endl;
-//			exit(1);
-//		}
-//		file.read(l, temp * sizeof(char));
-//		l[temp] = '\0';
-//
-//		cout << "Name: ";
-//		cin >> name;
-//		cout << "Surname: ";
-//		cin >> surname;
-//		cout << "FatherName: ";
-//		cin >> fathername;
-//		cout << "Address: ";
-//		cin >> address;
-//		cout << "Mobile number: ";
-//		cin >> mobile;
-//		cout << "Loginname:";
-//		cin >> loginname;
-//		while(l == loginname) {
-//
-//			cout << "Such loginname already exists, PLease try again";
-//			cin >> loginname;
-//		}
-//		cout << "Password: ";
-//		cin >> password;
-//	
-//
-//		delete[] n;
-//		delete[] s;
-//		delete[] f;
-//		delete[] a;
-//		delete[] l;
-//	}
-//
-//}
-//
-//void Guest::Print()
-//{
-//	cout << "Name: " << name << endl;
-//	cout << "Surname: " << surname << endl;
-//	cout << "FatherName: " << fathername << endl;
-//	cout << "Address: " << address << endl;
-//	cout << "Email: " << mobile<< endl;
-//}
-//
-//void main() {
-//	int choice;
-//	Guest g;
-//	
-//	HANDLE hconsole = GetStdHandle(STD_OUTPUT_HANDLE);
-//	SetConsoleTextAttribute(hconsole, 11);
-//	
-//	cout << " Welcome to Testing program!!!\n ";
-//	system("pause");
-//	system("cls");
-//	g.Register(g);
-//	g.Savetofile();
-//
-//	//do {
-//	//	system("cls");
-//	//	cout << "1 - Register \n2- Login" << endl;
-//	//	cin >> choice;
-//	//	if (choice == 1) {
-//	//		system("cls");
-//	//		cout << "1- Register as admin\n2-Register as guest\n3-Return back" << endl;
-//	//		cin >> choice;
-//	//		SetConsoleTextAttribute(hconsole, 15);
-//
-//	//		switch (choice)
-//	//		{
-//	//		case 1:
-//	//			system("cls");
-//	//	
-//	//			break;
-//	//		case 2:
-//	//			system("cls");
-//	//			g.Register();
-//	//			g.Savetofile();
-//	//			break;
-//	//		case 3:
-//	//			
-//	//			break;
-//	//		case 4:
-//	//			break;
-//	//			
-//	//		default:
-//	//			cout << "Not correct input" << endl;
-//	//			break;
-//	//		}
-//
-//	//	}
-//	//	else if (choice == 2) { 
-//	//		
-//	//		cout << "1- Login as admin\n2-Login as guest" << endl; 
-//	//	
-//	//	
-//	//	
-//	//	
-//	//	
-//	//	}
-//	//	
-//
-//	//} while (true);
-//
-//
-//
-//}
 
-class Farmanager {
-
-public:
-	Farmanager()
-	{
-		
-	}
-	void Createfile();
-	void RenameFile();
-	void CreateDir();
-};
-void Farmanager::Createfile()
-{
-	fstream f;
-	string path;
-	cout << "Enter the file name you want create:";
-	cin >> path;
-	f.open(path,fstream::app);
-	if(!f.is_open()) {
-		cout << "Such file name already exists!";
-	}
-	else {
-		cout << "File created!";
-	}
-
-}
-void Farmanager::RenameFile()
-{
-	{
-		char oldName[50];
-		char newName[50];
-		cout << "Old Name:";
-		cin >> oldName;
-		cout << "New Name:";
-		cin >> newName;
-		if (rename(oldName, newName) != 0) {
-			cout << "Error..." << endl;
-		}
-		else {
-
-			cout << "Complete..." << endl;
-		}
-	}
-}
-void Farmanager::CreateDir()
-{
-	{
-		char name[50];
-		cout << "Enter dir name:";
-		cin >> name;
-		if (_mkdir(name) == -1) {
-			cout << "Error..." << endl;
-		}
-		else {
-
-			cout << "Complete..." << endl;
-		}
-	}
-}
 void main() {
 
 	Farmanager f;
-	/*f.RenameFile();*/
-	f.Createfile();
+
+	string answer;
+	HANDLE hconsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    
+	while (answer.c_str())
+	{
+	
+		SetConsoleTextAttribute(hconsole, 8);
+		cout << "C:\\Windows\\system32>";
+		cin >> answer;
+		cout << endl ;
+
+		SetConsoleTextAttribute(hconsole, 9);
+		if (answer == "help")
+		{
+			SetConsoleTextAttribute(hconsole, 9);
+			cout << "display";   SetConsoleTextAttribute(hconsole, 11);    cout << "\t\tShow disc content\n";
+			SetConsoleTextAttribute(hconsole, 9);
+			cout << "mkdir";  SetConsoleTextAttribute(hconsole, 11); cout<<"\t\tCreate directory \n";
+			SetConsoleTextAttribute(hconsole, 9);
+			cout << "mkfile";  SetConsoleTextAttribute(hconsole, 11); cout << "\t\tCreate file \n";
+			SetConsoleTextAttribute(hconsole, 9);
+			cout << "rmdir";   SetConsoleTextAttribute(hconsole, 11);  cout<<"\t\tDelete directory or file\n";
+			SetConsoleTextAttribute(hconsole, 9);
+			cout << "rename";  SetConsoleTextAttribute(hconsole, 11); cout<<"\t\tRename directory or file\n";
+			SetConsoleTextAttribute(hconsole, 9);
+			cout << "copy";    SetConsoleTextAttribute(hconsole, 11); cout<<"\t\tCopies file from one to another location\n";
+			SetConsoleTextAttribute(hconsole, 9);
+			cout << "move";    SetConsoleTextAttribute(hconsole, 11); cout<<"\t\tMoves file from one directory to another\n";
+			SetConsoleTextAttribute(hconsole, 9);
+			cout << "size";    SetConsoleTextAttribute(hconsole, 11); cout<<"\t\tCalculate size of file or directory\n";
+			SetConsoleTextAttribute(hconsole, 9);
+			cout << "find";   SetConsoleTextAttribute(hconsole, 11); cout<<"\t\tSearch by mask\n\n";
+		
+		}
+		
+		else if (answer == "display") {
+			int count = 0;
+	    	char action[MAX_PATH];
+			char path[MAX_PATH];
+			char temp[MAX_PATH];
+			while (true) {
+				SetConsoleTextAttribute(hconsole, 13);
+				cout << "Enter commands to get Directory or exit to return back main menu: ";
+				SetConsoleTextAttribute(hconsole, 9);
+				cin >> action;
+			
+				if (strcmp(action, "exit") == 0) { system("cls"); break;  }
+				else if (count==0 ) {
+					if (_access(action, 00) == 0) {
+						strcpy_s(path, MAX_PATH, action);
+						f.ShowDir(path);
+						count++;
+					}
+					else { cout << "Not such directory...\n"; }
+				}
+				else if (count != 0) {
+					strcpy_s(temp, MAX_PATH, path);
+					strcat_s(path, action);
+					if (_access(path, 00) == 0) {
+						system("cls");
+						f.ShowDir(path);
+					}
+					else if(_access(path, 00) != 0) { cout << "Not such directory...\n"; strcpy_s(path,MAX_PATH,temp); }
+				}
+			}
+
+		}
+		else if (answer == "mkdir") {
+			f.CreateDir();
+		
+		}
+		else if (answer == "mkfile") {
+			f.Createfile();
+		
+		}
+		else if (answer == "rmdir") {
+			f.Remove();
+		
+		}
+		else if (answer == "rename") {
+			f.RenameFile();
+			system("pause");
+		}
+		if (answer == "copy") {
+			string file1;
+			string file2;
+			cout << "Enter you path: ";
+			cin >> file1;
+			cout << "Enter you destination: ";
+			cin >> file2;
+			f.Copy(file1, file2);
+		
+		}
+		if (answer == "move") {
+
+			f.RenameFile();
+			
+		}
+		if (answer == "size") {
+			f.Sum();
+	
+		}
+		if (answer == "find") {
+			f.SearchDir();
+	
+		}
+
+	}
+
 
 
 
 }
+
 
 
